@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal Kampus Nusantara Fiktif (DUMMY)</title>
+<style>
+  :root{
+    --ink:#14232b; --muted:#5a6b75; --line:#cfd8de; --bg:#eef2f5; --card:#ffffff;
+    --teal:#0f6b73; --teal-d:#0a4d54; --warn:#f2b705; --bad:#b3261e; --ok:#1b7a3d;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;margin:0 0 .5rem}
+  a{color:var(--teal)}
+  .dummy{background:var(--warn);color:#2b2200;text-align:center;padding:.5rem 1rem;font-weight:600;font-size:.9rem}
+  header.top{background:var(--teal-d);color:#fff;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;padding:.75rem 1.25rem}
+  header.top .brand{font-family:Georgia,serif;font-size:1.25rem}
+  nav a{color:#d8eef0;margin-right:1rem;text-decoration:none;font-weight:600}
+  nav a:hover,nav a.on{color:#fff;text-decoration:underline}
+  .who{font-size:.9rem}
+  main{max-width:880px;margin:1.25rem auto;padding:0 1rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1.25rem;margin-bottom:1rem}
+  label{display:block;font-weight:600;margin:.6rem 0 .2rem}
+  input[type=text],input[type=password],input[type=number],select,textarea{width:100%;padding:.55rem;border:1px solid var(--line);border-radius:4px;font:inherit}
+  textarea{min-height:90px}
+  button{background:var(--teal);color:#fff;border:0;border-radius:4px;padding:.55rem 1rem;font:inherit;font-weight:600;cursor:pointer}
+  button:hover{background:var(--teal-d)}
+  button.alt{background:#e4eaee;color:var(--ink)}
+  button.danger{background:var(--bad)}
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--warn);outline-offset:2px}
+  table{width:100%;border-collapse:collapse}
+  th,td{text-align:left;padding:.5rem;border-bottom:1px solid var(--line);vertical-align:top}
+  .msg{padding:.6rem .8rem;border-radius:4px;margin:.6rem 0}
+  .msg.err{background:#fbe9e7;color:var(--bad)}
+  .msg.ok{background:#e6f4ea;color:var(--ok)}
+  .muted{color:var(--muted);font-size:.9rem}
+  .post{border-bottom:1px solid var(--line);padding:.6rem 0}
+  .modebar{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+  .tag{display:inline-block;padding:.1rem .5rem;border-radius:3px;font-size:.8rem;font-weight:700}
+  .tag.rentan{background:#fbe9e7;color:var(--bad)} .tag.aman{background:#e6f4ea;color:var(--ok)}
+  details{margin-top:1rem} summary{cursor:pointer;font-weight:600}
+  code{background:#e4eaee;padding:.1rem .3rem;border-radius:3px;font-size:.85em}
+  .row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:end}
+  .row>*{flex:1 1 140px}
+</style>
+</head>
+<body>
+
+<div class="dummy">DUMMY — portal fiktif untuk latihan keamanan. Semua akun dan data sintetis. Sengaja dibuat rentan, jangan dipakai untuk data nyata.</div>
+
+<header class="top">
+  <div class="brand">Portal Kampus Nusantara</div>
+  <nav id="nav" aria-label="Menu utama"></nav>
+  <div class="who" id="who"></div>
+</header>
+
+<main id="app"></main>
+
+<main>
+  <div class="card">
+    <div class="modebar">
+      <strong>Mode portal:</strong>
+      <span id="modeTag" class="tag"></span>
+      <button class="alt" id="btnMode" type="button"></button>
+      <button class="alt" id="btnReset" type="button">Reset data demo</button>
+    </div>
+    <p class="muted">Mode <b>RENTAN</b> adalah versi yang dinilai. Mode <b>AMAN</b> memperlihatkan perbaikan untuk pembanding sebelum-sesudah.</p>
+    <details>
+      <summary>Daftar kerentanan yang sengaja dibuat (untuk penilai)</summary>
+      <table>
+        <tr><th>Kerentanan</th><th>Lokasi</th><th>Cara mencoba (data sintetis)</th></tr>
+        <tr><td>Stored XSS</td><td>Menu Diskusi</td><td>Kirim pesan <code>&lt;img src=x onerror=alert('XSS')&gt;</code>. Skrip berjalan setiap kali halaman Diskusi dibuka.</td></tr>
+        <tr><td>IDOR / kontrol akses lemah</td><td>Menu Nilai (<code>#/nilai/ID</code>)</td><td>Masuk sebagai mahasiswa, ubah ID di URL dari milik sendiri ke ID mahasiswa lain, mis. <code>#/nilai/m2</code>.</td></tr>
+        <tr><td>Percobaan sandi tanpa pembatasan</td><td>Halaman Masuk</td><td>Coba sandi salah berulang kali. Tidak ada penguncian, penghitung gagal terus naik.</td></tr>
+        <tr><td>Validasi berkas lemah</td><td>Menu Tugas</td><td>Unggah berkas berekstensi <code>.exe</code>, <code>.html</code>, atau berukuran besar. Semuanya diterima.</td></tr>
+      </table>
+      <p class="muted">Catatan teknis: portal ini statis (berjalan di browser, data disimpan di <code>localStorage</code>), sehingga "server" dan "database" disimulasikan di sisi klien.</p>
+    </details>
+    <details>
+      <summary>Akun sintetis</summary>
+      <table>
+        <tr><th>Peran</th><th>Username</th><th>Sandi</th></tr>
+        <tr><td>Mahasiswa</td><td>nadira.k</td><td>nadira-123</td></tr>
+        <tr><td>Mahasiswa</td><td>bayu.p</td><td>bayu-123</td></tr>
+        <tr><td>Dosen</td><td>dosen.sari</td><td>dosen-123</td></tr>
+        <tr><td>Admin</td><td>admin.portal</td><td>admin-123</td></tr>
+      </table>
+    </details>
+  </div>
+</main>
+
+<script>
+"use strict";
+/* ---------- Penyimpanan (simulasi database) ---------- */
+const K_DB = "portal_nusantara_db_v1", K_MODE = "portal_nusantara_mode", K_SES = "portal_nusantara_ses";
+function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
+function lsDel(k){ try { localStorage.removeItem(k); } catch(e){} }
+
+function seed(){
+  return {
+    users: [
+      {id:"m1", username:"nadira.k",    password:"nadira-123", name:"Nadira Kusuma",     role:"mahasiswa", npm:"99100001"},
+      {id:"m2", username:"bayu.p",      password:"bayu-123",   name:"Bayu Pranata",      role:"mahasiswa", npm:"99100002"},
+      {id:"d1", username:"dosen.sari",  password:"dosen-123",  name:"Sari Wulandari (fiktif)", role:"dosen"},
+      {id:"a1", username:"admin.portal",password:"admin-123",  name:"Admin Portal",      role:"admin"}
+    ],
+    grades: {
+      m1: [{mk:"Keamanan Sistem Informasi", nilai:86},{mk:"Basis Data", nilai:79}],
+      m2: [{mk:"Keamanan Sistem Informasi", nilai:72},{mk:"Basis Data", nilai:81}]
+    },
+    submissions: [],
+    posts: [
+      {id:1, author:"Bayu Pranata", text:"Kapan batas pengumpulan tugas KSI minggu ini?", time:"2026-10-12 09:15"},
+      {id:2, author:"Sari Wulandari (fiktif)", text:"Batasnya Jumat pukul 23.59. Kumpulkan lewat menu Tugas.", time:"2026-10-12 10:02"}
+    ],
+    nextPost: 3, nextSub: 1, nextUser: 5
+  };
+}
+let db = (function(){ try { const d = JSON.parse(lsGet(K_DB)); if (d && d.users) return d; } catch(e){} return seed(); })();
+function save(){ lsSet(K_DB, JSON.stringify(db)); }
+
+let mode = lsGet(K_MODE) === "aman" ? "aman" : "rentan";
+let session = (function(){ try { return JSON.parse(lsGet(K_SES)); } catch(e){ return null; } })();
+let failedLogins = 0, lockUntil = 0;
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const me = () => session ? db.users.find(u => u.id === session.uid) : null;
+const now = () => new Date().toISOString().slice(0,16).replace("T"," ");
+
+/* ---------- Kerangka halaman ---------- */
+function renderChrome(){
+  const u = me();
+  const links = [];
+  if (u){
+    if (u.role === "mahasiswa"){ links.push(["#/nilai/"+u.id,"Nilai"],["#/tugas","Tugas"],["#/diskusi","Diskusi"]); }
+    if (u.role === "dosen"){ links.push(["#/nilai","Beri nilai"],["#/tugas","Tugas masuk"],["#/diskusi","Diskusi"]); }
+    if (u.role === "admin"){ links.push(["#/admin","Kelola akun"],["#/diskusi","Diskusi"]); }
+  }
+  const cur = location.hash;
+  $("#nav").innerHTML = links.map(l => `<a href="${l[0]}" class="${cur===l[0]?'on':''}">${l[1]}</a>`).join("");
+  $("#who").innerHTML = u ? `${esc(u.name)} (${esc(u.role)}) <button class="alt" id="btnLogout" type="button">Keluar</button>` : "";
+  const lo = $("#btnLogout"); if (lo) lo.onclick = logout;
+  $("#modeTag").textContent = mode.toUpperCase();
+  $("#modeTag").className = "tag " + mode;
+  $("#btnMode").textContent = mode === "rentan" ? "Beralih ke mode AMAN" : "Beralih ke mode RENTAN";
+}
+
+function route(){
+  renderChrome();
+  const u = me();
+  const h = location.hash || "#/";
+  const app = $("#app");
+  if (!u){ return viewLogin(app); }
+  if (h.startsWith("#/nilai")) return viewNilai(app, u, h.split("/")[2]);
+  if (h === "#/tugas") return viewTugas(app, u);
+  if (h === "#/diskusi") return viewDiskusi(app, u);
+  if (h === "#/admin") return viewAdmin(app, u);
+  // beranda
+  const first = {mahasiswa:"#/nilai/"+u.id, dosen:"#/nilai", admin:"#/admin"}[u.role];
+  location.hash = first;
+}
+window.addEventListener("hashchange", route);
+
+/* ---------- Masuk / keluar ---------- */
+function viewLogin(app){
+  app.innerHTML = `
+  <div class="card">
+    <h1>Masuk ke portal</h1>
+    <p class="muted">Gunakan akun sintetis yang tercantum di bagian bawah halaman.</p>
+    <label for="un">Username</label><input type="text" id="un" autocomplete="off">
+    <label for="pw">Sandi</label><input type="password" id="pw" autocomplete="off">
+    <p><button id="go" type="button">Masuk</button></p>
+    <div id="loginMsg" aria-live="polite"></div>
+    <p class="muted">Percobaan gagal sejak halaman dibuka: <b id="cnt">${failedLogins}</b></p>
+  </div>`;
+  const doLogin = () => {
+    const msg = $("#loginMsg");
+    if (mode === "aman" && Date.now() < lockUntil){
+      const s = Math.ceil((lockUntil - Date.now())/1000);
+      msg.innerHTML = `<div class="msg err">Terlalu banyak percobaan gagal. Coba lagi dalam ${s} detik.</div>`; return;
+    }
+    const un = $("#un").value, pw = $("#pw").value;
+    const u = db.users.find(x => x.username === un && x.password === pw);
+    if (u){
+      failedLogins = 0;
+      session = {uid:u.id}; lsSet(K_SES, JSON.stringify(session));
+      location.hash = "#/"; route();
+    } else {
+      failedLogins++;
+      $("#cnt").textContent = failedLogins;
+      if (mode === "aman" && failedLogins >= 5){ lockUntil = Date.now() + 30000; failedLogins = 0; }
+      msg.innerHTML = `<div class="msg err">Username atau sandi salah.</div>`;
+    }
+  };
+  $("#go").onclick = doLogin;
+  $("#pw").onkeydown = e => { if (e.key === "Enter") doLogin(); };
+}
+function logout(){ session = null; lsDel(K_SES); location.hash = "#/"; route(); }
+
+/* ---------- Nilai (IDOR) ---------- */
+function viewNilai(app, u, targetId){
+  if (u.role === "dosen") return viewBeriNilai(app, u);
+  if (u.role !== "mahasiswa"){ app.innerHTML = `<div class="card"><h2>Tidak tersedia</h2><p>Menu ini untuk mahasiswa dan dosen.</p></div>`; return; }
+  if (!targetId){ location.hash = "#/nilai/" + u.id; return; }
+  const target = db.users.find(x => x.id === targetId);
+  // KERENTANAN SENGAJA (IDOR): pada mode rentan tidak ada pemeriksaan kepemilikan.
+  if (mode === "aman" && targetId !== u.id){
+    app.innerHTML = `<div class="card"><h2>403 Dilarang</h2><p>Kamu hanya boleh melihat nilai milikmu sendiri.</p></div>`; return;
+  }
+  if (!target || !db.grades[targetId]){
+    app.innerHTML = `<div class="card"><h2>404 Tidak ditemukan</h2><p>Data nilai untuk ID <code>${esc(targetId)}</code> tidak ada.</p></div>`; return;
+  }
+  const rows = db.grades[targetId].map(g => `<tr><td>${esc(g.mk)}</td><td>${esc(g.nilai)}</td></tr>`).join("");
+  app.innerHTML = `
+  <div class="card">
+    <h1>Nilai: ${esc(target.name)}</h1>
+    <p class="muted">NPM ${esc(target.npm)} · alamat halaman ini: <code>#/nilai/${esc(targetId)}</code></p>
+    <table><tr><th>Mata kuliah</th><th>Nilai</th></tr>${rows}</table>
+  </div>`;
+}
+function viewBeriNilai(app, u){
+  const studs = db.users.filter(x => x.role === "mahasiswa");
+  app.innerHTML = `
+  <div class="card">
+    <h1>Beri nilai</h1>
+    <div class="row">
+      <div><label for="gs">Mahasiswa</label><select id="gs">${studs.map(s => `<option value="${esc(s.id)}">${esc(s.name)}</option>`).join("")}</select></div>
+      <div><label for="gm">Mata kuliah</label><input type="text" id="gm" value="Keamanan Sistem Informasi"></div>
+      <div><label for="gn">Nilai (0-100)</label><input type="number" id="gn" min="0" max="100"></div>
+      <div><button id="gsave" type="button">Simpan nilai</button></div>
+    </div>
+    <div id="gmsg" aria-live="polite"></div>
+  </div>
+  <div class="card"><h2>Rekap</h2><table id="rekap"></table></div>`;
+  const draw = () => {
+    $("#rekap").innerHTML = `<tr><th>Mahasiswa</th><th>Mata kuliah</th><th>Nilai</th></tr>` +
+      studs.flatMap(s => (db.grades[s.id]||[]).map(g => `<tr><td>${esc(s.name)}</td><td>${esc(g.mk)}</td><td>${esc(g.nilai)}</td></tr>`)).join("");
+  };
+  draw();
+  $("#gsave").onclick = () => {
+    const sid = $("#gs").value, mk = $("#gm").value.trim(), n = Number($("#gn").value);
+    if (!mk || $("#gn").value === "" || n < 0 || n > 100 || !Number.isFinite(n)){
+      $("#gmsg").innerHTML = `<div class="msg err">Isi mata kuliah dan nilai antara 0 dan 100.</div>`; return;
+    }
+    db.grades[sid] = db.grades[sid] || [];
+    const ex = db.grades[sid].find(g => g.mk === mk);
+    if (ex) ex.nilai = n; else db.grades[sid].push({mk, nilai:n});
+    save(); draw();
+    $("#gmsg").innerHTML = `<div class="msg ok">Nilai tersimpan.</div>`;
+  };
+}
+
+/* ---------- Tugas (validasi berkas lemah) ---------- */
+function viewTugas(app, u){
+  const isStud = u.role === "mahasiswa";
+  const list = db.submissions.filter(s => u.role === "dosen" ? true : s.uid === u.id);
+  app.innerHTML = `
+  ${isStud ? `<div class="card">
+    <h1>Unggah tugas</h1>
+    <label for="jd">Judul tugas</label><input type="text" id="jd" value="Tugas KSI">
+    <label for="fl">Berkas</label><input type="file" id="fl">
+    <p><button id="up" type="button">Unggah</button></p>
+    <div id="umsg" aria-live="polite"></div>
+    ${mode === "aman" ? `<p class="muted">Mode aman: hanya .pdf, .docx, .zip dengan ukuran maksimal 2 MB.</p>` : ``}
+  </div>` : ``}
+  <div class="card"><h2>${isStud ? "Tugas saya" : "Tugas masuk"}</h2>
+    <table><tr><th>Waktu</th>${isStud?"":"<th>Mahasiswa</th>"}<th>Judul</th><th>Berkas</th><th>Ukuran</th></tr>
+    ${list.map(s => `<tr><td>${esc(s.time)}</td>${isStud?"":`<td>${esc(s.who)}</td>`}<td>${esc(s.title)}</td><td>${esc(s.file)}</td><td>${esc(s.size)} B</td></tr>`).join("") || `<tr><td colspan="5" class="muted">Belum ada tugas diunggah.</td></tr>`}
+    </table>
+  </div>`;
+  if (!isStud) return;
+  $("#up").onclick = () => {
+    const f = $("#fl").files[0], title = $("#jd").value.trim() || "Tanpa judul", m = $("#umsg");
+    if (!f){ m.innerHTML = `<div class="msg err">Pilih berkas dulu.</div>`; return; }
+    // KERENTANAN SENGAJA: pada mode rentan tidak ada pemeriksaan ekstensi maupun ukuran.
+    if (mode === "aman"){
+      const ok = /\.(pdf|docx|zip)$/i.test(f.name);
+      if (!ok){ m.innerHTML = `<div class="msg err">Jenis berkas ditolak. Hanya .pdf, .docx, .zip.</div>`; return; }
+      if (f.size > 2*1024*1024){ m.innerHTML = `<div class="msg err">Ukuran melebihi 2 MB.</div>`; return; }
+    }
+    db.submissions.push({id:db.nextSub++, uid:u.id, who:u.name, title, file:f.name, size:f.size, time:now()});
+    save(); m.innerHTML = `<div class="msg ok">Tugas diunggah: ${esc(f.name)}</div>`;
+    setTimeout(() => viewTugas(app, u), 600);
+  };
+}
+
+/* ---------- Diskusi (Stored XSS) ---------- */
+function viewDiskusi(app, u){
+  app.innerHTML = `
+  <div class="card">
+    <h1>Forum diskusi</h1>
+    <label for="pt">Tulis pesan</label><textarea id="pt"></textarea>
+    <p><button id="pp" type="button">Kirim pesan</button></p>
+  </div>
+  <div class="card" id="plist"></div>`;
+  const draw = () => {
+    $("#plist").innerHTML = db.posts.slice().reverse().map(p => {
+      // KERENTANAN SENGAJA (Stored XSS): isi pesan dirender sebagai HTML mentah pada mode rentan.
+      const body = mode === "aman" ? esc(p.text) : p.text;
+      return `<div class="post"><b>${esc(p.author)}</b> <span class="muted">${esc(p.time)}</span><div>${body}</div></div>`;
+    }).join("");
+  };
+  draw();
+  $("#pp").onclick = () => {
+    const t = $("#pt").value.trim(); if (!t) return;
+    db.posts.push({id:db.nextPost++, author:u.name, text:t, time:now()});
+    save(); $("#pt").value = ""; draw();
+  };
+}
+
+/* ---------- Admin ---------- */
+function viewAdmin(app, u){
+  if (u.role !== "admin"){ app.innerHTML = `<div class="card"><h2>403 Dilarang</h2><p>Menu ini hanya untuk admin.</p></div>`; return; }
+  const draw = () => {
+    app.innerHTML = `
+    <div class="card">
+      <h1>Kelola akun</h1>
+      <table><tr><th>ID</th><th>Username</th><th>Nama</th><th>Peran</th><th>Aksi</th></tr>
+      ${db.users.map(x => `<tr><td>${esc(x.id)}</td><td>${esc(x.username)}</td><td>${esc(x.name)}</td>
+        <td>${esc(x.role)}</td><td>${x.id === u.id ? `<span class="muted">akun aktif</span>` : `<button class="danger" data-del="${esc(x.id)}" type="button">Hapus</button>`}</td></tr>`).join("")}
+      </table>
+    </div>
+    <div class="card">
+      <h2>Tambah akun sintetis</h2>
+      <div class="row">
+        <div><label for="nu">Username</label><input type="text" id="nu"></div>
+        <div><label for="nn">Nama</label><input type="text" id="nn"></div>
+        <div><label for="np">Sandi</label><input type="text" id="np"></div>
+        <div><label for="nr">Peran</label><select id="nr"><option>mahasiswa</option><option>dosen</option><option>admin</option></select></div>
+        <div><button id="na" type="button">Tambah</button></div>
+      </div>
+      <div id="amsg" aria-live="polite"></div>
+    </div>`;
+    app.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+      const id = b.dataset.del;
+      db.users = db.users.filter(x => x.id !== id); delete db.grades[id]; save(); draw();
+    });
+    $("#na").onclick = () => {
+      const un = $("#nu").value.trim(), nn = $("#nn").value.trim(), np = $("#np").value, role = $("#nr").value;
+      if (!un || !nn || !np){ $("#amsg").innerHTML = `<div class="msg err">Lengkapi username, nama, dan sandi.</div>`; return; }
+      if (db.users.some(x => x.username === un)){ $("#amsg").innerHTML = `<div class="msg err">Username sudah dipakai.</div>`; return; }
+      const id = (role==="mahasiswa"?"m":role==="dosen"?"d":"a") + (db.nextUser++);
+      const nu = {id, username:un, password:np, name:nn, role};
+      if (role === "mahasiswa"){ nu.npm = "9910" + String(1000 + db.nextUser); db.grades[id] = []; }
+      db.users.push(nu); save(); draw();
+    };
+  };
+  draw();
+}
+
+/* ---------- Kontrol mode & reset ---------- */
+$("#btnMode").onclick = () => { mode = mode === "rentan" ? "aman" : "rentan"; lsSet(K_MODE, mode); route(); };
+$("#btnReset").onclick = () => {
+  if (!confirm("Reset semua data demo ke kondisi awal?")) return;
+  db = seed(); save(); session = null; lsDel(K_SES); failedLogins = 0; lockUntil = 0; location.hash = "#/"; route();
+};
+route();
+</script>
+</body>
+</html>
