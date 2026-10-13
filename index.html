@@ -81,10 +81,10 @@
       <summary>Akun sintetis</summary>
       <table>
         <tr><th>Peran</th><th>Username</th><th>Sandi</th></tr>
-        <tr><td>Mahasiswa</td><td>nadira.k</td><td>nadira-123</td></tr>
-        <tr><td>Mahasiswa</td><td>bayu.p</td><td>bayu-123</td></tr>
-        <tr><td>Dosen</td><td>dosen.sari</td><td>dosen-123</td></tr>
-        <tr><td>Admin</td><td>admin.portal</td><td>admin-123</td></tr>
+        <tr><td>Mahasiswa</td><td>Riski.A</td><td>riski123</td></tr>
+        <tr><td>Mahasiswa</td><td>Dimas.P</td><td>dimas123</td></tr>
+        <tr><td>Dosen</td><td>Hendra.G</td><td>hendra123</td></tr>
+        <tr><td>Admin</td><td>Admin.P</td><td>admin123</td></tr>
       </table>
     </details>
   </div>
@@ -93,7 +93,7 @@
 <script>
 "use strict";
 /* ---------- Penyimpanan (simulasi database) ---------- */
-const K_DB = "portal_nusantara_db_v1", K_MODE = "portal_nusantara_mode", K_SES = "portal_nusantara_ses";
+const K_DB = "portal_nusantara_db_v3", K_MODE = "portal_nusantara_mode", K_SES = "portal_nusantara_ses_v3";
 function lsGet(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
 function lsSet(k,v){ try { localStorage.setItem(k,v); } catch(e){} }
 function lsDel(k){ try { localStorage.removeItem(k); } catch(e){} }
@@ -101,10 +101,10 @@ function lsDel(k){ try { localStorage.removeItem(k); } catch(e){} }
 function seed(){
   return {
     users: [
-      {id:"m1", username:"nadira.k",    password:"nadira-123", name:"Nadira Kusuma",     role:"mahasiswa", npm:"99100001"},
-      {id:"m2", username:"bayu.p",      password:"bayu-123",   name:"Bayu Pranata",      role:"mahasiswa", npm:"99100002"},
-      {id:"d1", username:"dosen.sari",  password:"dosen-123",  name:"Sari Wulandari (fiktif)", role:"dosen"},
-      {id:"a1", username:"admin.portal",password:"admin-123",  name:"Admin Portal",      role:"admin"}
+      {id:"m1", username:"Riski.A",    password:"riski123", name:"Riski Amalia",     role:"mahasiswa", npm:"99200011"},
+      {id:"m2", username:"Dimas.P",      password:"dimas123",   name:"Dimas Pratama",      role:"mahasiswa", npm:"99200012"},
+      {id:"d1", username:"Hendra.G",  password:"hendra123",  name:"Hendra Gunawan (fiktif)", role:"dosen"},
+      {id:"a1", username:"Admin.P",password:"admin123",  name:"Admin Portal Kampus",      role:"admin"}
     ],
     grades: {
       m1: [{mk:"Keamanan Sistem Informasi", nilai:86},{mk:"Basis Data", nilai:79}],
@@ -112,8 +112,8 @@ function seed(){
     },
     submissions: [],
     posts: [
-      {id:1, author:"Bayu Pranata", text:"Kapan batas pengumpulan tugas KSI minggu ini?", time:"2026-10-12 09:15"},
-      {id:2, author:"Sari Wulandari (fiktif)", text:"Batasnya Jumat pukul 23.59. Kumpulkan lewat menu Tugas.", time:"2026-10-12 10:02"}
+      {id:1, author:"Dimas Pratama", text:"Kapan batas pengumpulan tugas KSI minggu ini?", time:"2026-10-12 09:15"},
+      {id:2, author:"Hendra Gunawan (fiktif)", text:"Batasnya Jumat pukul 23.59. Kumpulkan lewat menu Tugas.", time:"2026-10-12 10:02"}
     ],
     nextPost: 3, nextSub: 1, nextUser: 5
   };
@@ -344,7 +344,7 @@ function viewAdmin(app, u){
       if (db.users.some(x => x.username === un)){ $("#amsg").innerHTML = `<div class="msg err">Username sudah dipakai.</div>`; return; }
       const id = (role==="mahasiswa"?"m":role==="dosen"?"d":"a") + (db.nextUser++);
       const nu = {id, username:un, password:np, name:nn, role};
-      if (role === "mahasiswa"){ nu.npm = "9910" + String(1000 + db.nextUser); db.grades[id] = []; }
+      if (role === "mahasiswa"){ nu.npm = "9920" + String(1000 + db.nextUser); db.grades[id] = []; }
       db.users.push(nu); save(); draw();
     };
   };
